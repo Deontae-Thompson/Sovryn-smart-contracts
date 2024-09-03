@@ -47,7 +47,7 @@ def printMultisigOwnersOnAny(multisigAddress):
     multisig = Contract.from_abi("MultiSig", address=multisigAddress, abi=MultiSigWallet.abi, owner=conf.acct)
     print(multisig.getOwners())
 
-def replaceOwnerOnMultisig(multisig, oldOwner, newOwner):
+def replaceOwnerOnMultisig(oldOwner, newOwner):
     multisig = Contract.from_abi("MultiSig", address=conf.contracts['multisig'], abi=MultiSigWallet.abi, owner=conf.acct)
     data = multisig.replaceOwner.encode_input(oldOwner, newOwner)
     sendWithMultisig(multisig, multisig, data, conf.acct)
