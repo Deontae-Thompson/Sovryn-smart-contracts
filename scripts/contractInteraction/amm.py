@@ -244,7 +244,7 @@ def addLiquidityV1FromMultisigUsingWrapper(wrapper, converter, tokens, amounts, 
 
 #expects the first token to be wrbtc
 #example: removeLiquidityV1toMultisigUsingWrapper(conf.contracts['RBTCWrapperProxyWithoutLM'], conf.contracts['ConverterMYNT'], 100e18, [conf.contracts['WRBTC'], conf.contracts['MYNT']], [5e18,2500000e18])
-def removeLiquidityV1toMultisigUsingWrapper(wrapper, converter, amount, tokens, minReturn):
+def removeLiquidityV1toMultisigUsingWrapper(wrapper, converter, amount, tokens, minReturn, approve = True):
     abiFile =  open('./scripts/contractInteraction/ABIs/RBTCWrapperProxy.json')
     abi = json.load(abiFile)
     wrapperProxy = Contract.from_abi("RBTCWrapperProxy", address= wrapper, abi=abi, owner=conf.acct)
@@ -255,11 +255,12 @@ def removeLiquidityV1toMultisigUsingWrapper(wrapper, converter, amount, tokens, 
     poolToken = converterContract.anchor()
 
     # approve
-    token = Contract.from_abi("ERC20", address=poolToken, abi=ERC20.abi, owner=conf.acct)
-    data = token.approve.encode_input(wrapperProxy.address, amount)
-    print(data)
+    if approve:
+        token = Contract.from_abi("ERC20", address=poolToken, abi=ERC20.abi, owner=conf.acct)
+        data = token.approve.encode_input(wrapperProxy.address, amount)
+        print(data)
+        sendWithMultisig(conf.contracts['multisig'], token.address, data, conf.acct)
     
-    sendWithMultisig(conf.contracts['multisig'], token.address, data, conf.acct)
 
     # removeLiquidityFromV1
     data = wrapperProxy.removeLiquidityFromV1.encode_input(converter, amount, tokens, minReturn)
@@ -432,6 +433,7 @@ def getExchequerBalances():
     print("BPRO balance: ", bproBalance/1e18)
     print("BNB balance: ", bnbBalance/1e18)
     print("WRBTC balance in BNB pool: ", wrbtcBnbBalance/1e18)
+    print("DLLR pool token balance: ", dllrPool/1e18)
     print("DLLR balance: ", dllrBalance/1e18)
     print("WRBTC balance in DLLR pool: ", wrbtcDllrBalance/1e18)
     print("XUSD balance: ", xusdBalance/1e18)

@@ -7,7 +7,7 @@ const { sendWithMultisig } = require("../../deployment/helpers/helpers");
 
 task("bridge:allowToken", "Whitelist token on a bridge")
     .addPositionalParam("token", "Address or deployment name (e.g. DLLR) of a token to whitelist")
-    .addOptionalParam("bridge", "Bridge contract to set allowance to", "BridgeRSK")
+    .addOptionalParam("bridge", "Bridge contract to set allowance to", "Bridge")
     .addOptionalParam("signer", "Signer name: 'signer' or 'deployer'", "deployer")
     .setAction(async ({ signer, token, bridge }, hre) => {
         const {
@@ -41,6 +41,180 @@ task("bridge:allowToken", "Whitelist token on a bridge")
         } else {
             logger.warn(
                 `The wallet ${signerAcc} is not an owner of the multisig ${multisigAddress}. Only multisig owners can whitelist tokens on a bridge`
+            );
+            logger.warn("Populating multisig tx...");
+
+            const gasEstimated = (
+                await multisigContract.estimateGas.submitTransaction(allowTokensAddress, 0, data)
+            ).toNumber();
+
+            const unsignedTx = await multisigContract.populateTransaction.submitTransaction(
+                allowTokensAddress,
+                0,
+                data,
+                {
+                    gasLimit: Math.round(gasEstimated * 1.3),
+                }
+            );
+
+            delete unsignedTx.from;
+            logger.warning("==================== populated tx start ====================");
+            logger.info(unsignedTx);
+            logger.warning("==================== populated tx end   =================");
+        }
+    });
+
+task("bridge:getDailyLimit", "Get bridge tokens transfer daily limit")
+    .addOptionalParam(
+        "bridge",
+        "Bridge contract to get tokens transfer daily limit from",
+        "Bridge"
+    )
+    .setAction(async ({ bridge }, hre) => {
+        const {
+            deployments: { getArtifact },
+            ethers,
+        } = hre;
+        const allowTokensArtifact = await getArtifact("AllowTokens");
+        const bridgeContract = await ethers.getContract(bridge);
+        const allowTokensAddress = await bridgeContract.allowTokens();
+        const allowTokensContract = await ethers.getContractAt(
+            allowTokensArtifact.abi,
+            allowTokensAddress
+        );
+
+        const dailyLimit = await allowTokensContract.dailyLimit();
+
+        logger.info(
+            `The bridge ${bridgeContract.address} daily tokens limit is ${(dailyLimit / 1e18).toLocaleString("en")}`
+        );
+    });
+
+task("bridge:setDailyLimit", "Set daily tokens transfer limit on a bridge")
+    .addPositionalParam(
+        "amount",
+        "Daily tokens transfer limit amount to set in ETH (will be multiplied by 1e18)"
+    )
+    .addOptionalParam("bridge", "Bridge contract to set allowance to", "Bridge")
+    .addOptionalParam("signer", "Signer name: 'signer' or 'deployer'", "deployer")
+    .setAction(async ({ signer, amount, bridge }, hre) => {
+        const {
+            deployments: { getArtifact },
+            ethers,
+        } = hre;
+
+        const signerAcc = (await hre.getNamedAccounts())[signer];
+        const allowTokensArtifact = await getArtifact("AllowTokens");
+        const bridgeContract = await ethers.getContract(bridge);
+        const allowTokensAddress = await bridgeContract.allowTokens();
+        const allowTokensContract = await ethers.getContractAt(
+            allowTokensArtifact.abi,
+            allowTokensAddress
+        );
+
+        const multisigAddress = await allowTokensContract.owner();
+        const multisigContract = await ethers.getContractAt("MultiSigWallet", multisigAddress);
+
+        const allowTokensInterface = new ethers.utils.Interface(allowTokensArtifact.abi);
+        let data = allowTokensInterface.encodeFunctionData("changeDailyLimit", [
+            ethers.utils.parseEther(amount),
+        ]);
+
+        if (await multisigContract.isOwner(signerAcc)) {
+            await sendWithMultisig(
+                multisigContract.address,
+                allowTokensContract.address,
+                data,
+                signerAcc
+            );
+        } else {
+            logger.warn(
+                `The wallet ${signerAcc} is not an owner of the multisig ${multisigAddress}. Only multisig owners can create txs on a bridge`
+            );
+            logger.warn("Populating multisig tx...");
+
+            const gasEstimated = (
+                await multisigContract.estimateGas.submitTransaction(allowTokensAddress, 0, data)
+            ).toNumber();
+
+            const unsignedTx = await multisigContract.populateTransaction.submitTransaction(
+                allowTokensAddress,
+                0,
+                data,
+                {
+                    gasLimit: Math.round(gasEstimated * 1.3),
+                }
+            );
+
+            delete unsignedTx.from;
+            logger.warning("==================== populated tx start ====================");
+            logger.info(unsignedTx);
+            logger.warning("==================== populated tx end   =================");
+        }
+    });
+
+task("bridge:getMaxTokensAllowed", "Get bridge max tokens limit per transfer")
+    .addOptionalParam("bridge", "Bridge contract to get max tokens limit per transfer", "Bridge")
+    .setAction(async ({ bridge }, hre) => {
+        const {
+            deployments: { getArtifact },
+            ethers,
+        } = hre;
+        const allowTokensArtifact = await getArtifact("AllowTokens");
+        const bridgeContract = await ethers.getContract(bridge);
+        const allowTokensAddress = await bridgeContract.allowTokens();
+        const allowTokensContract = await ethers.getContractAt(
+            allowTokensArtifact.abi,
+            allowTokensAddress
+        );
+
+        const maxTokensAllowed = await allowTokensContract.getMaxTokensAllowed();
+
+        logger.info(
+            `The bridge ${bridgeContract.address} max tokens allowed per transfer is ${(maxTokensAllowed / 1e18).toLocaleString("en")}`
+        );
+    });
+
+task("bridge:setMaxTokensAllowed", "Set max tokens transfer limit per transfer on a bridge")
+    .addPositionalParam(
+        "amount",
+        "Max tokens single transfer limit amount to set in ETH (will be multiplied by 1e18)"
+    )
+    .addOptionalParam("bridge", "Bridge contract to set allowance to", "Bridge")
+    .addOptionalParam("signer", "Signer name: 'signer' or 'deployer'", "deployer")
+    .setAction(async ({ signer, amount, bridge }, hre) => {
+        const {
+            deployments: { get, getArtifact },
+            ethers,
+        } = hre;
+
+        const signerAcc = (await hre.getNamedAccounts())[signer];
+        const allowTokensArtifact = await getArtifact("AllowTokens");
+        const bridgeContract = await ethers.getContract(bridge);
+        const allowTokensAddress = await bridgeContract.allowTokens();
+        const allowTokensContract = await ethers.getContractAt(
+            allowTokensArtifact.abi,
+            allowTokensAddress
+        );
+
+        const multisigAddress = await allowTokensContract.owner();
+        const multisigContract = await ethers.getContractAt("MultiSigWallet", multisigAddress);
+
+        const allowTokensInterface = new ethers.utils.Interface(allowTokensArtifact.abi);
+        let data = allowTokensInterface.encodeFunctionData("setMaxTokensAllowed", [
+            ethers.utils.parseEther(amount),
+        ]);
+
+        if (await multisigContract.isOwner(signerAcc)) {
+            await sendWithMultisig(
+                multisigContract.address,
+                allowTokensContract.address,
+                data,
+                signerAcc
+            );
+        } else {
+            logger.warn(
+                `The wallet ${signerAcc} is not an owner of the multisig ${multisigAddress}. Only multisig owners can create txs on a bridge`
             );
             logger.warn("Populating multisig tx...");
 

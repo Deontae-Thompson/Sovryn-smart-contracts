@@ -31,7 +31,7 @@ def removeFromPool(loanTokenAddress, amount):
     return tx
 
 def removeFromPoolWithMS(loanTokenAddress, amount, receiver):
-    loanToken = Contract.from_abi("loanToken", address = loanTokenAddress, abi=LoanTokenLogicStandard.abi, owner=conf.acct)
+    loanToken = Contract.from_abi("loanToken", address = loanTokenAddress, abi=LoanTokenLogicSplit.abi, owner=conf.acct)
     data = loanToken.burn.encode_input(receiver, amount)
     print(data)
     sendWithMultisig(conf.contracts['multisig'], loanTokenAddress, data, conf.acct)
@@ -393,6 +393,13 @@ def readLendingBalanceForUser(loanTokenAddress, userAddress):
     print('iToken balance', bal)
     bal = loanToken.assetBalanceOf(userAddress)
     print('underlying token balance', bal)
+    return bal
+
+def readLoanTokenBalanceForUser(loanTokenAddress, userAddress):
+    loanToken = Contract.from_abi("loanToken", address=loanTokenAddress, abi=LoanTokenLogicStandard.abi, owner=userAddress)
+    bal = loanToken.balanceOf(userAddress)
+    print('iToken balance', bal)
+    return bal
 
 def deployNewLoanTokenLogicFirstTime():
     # This function only be called one time (right after the changes of the refactoring LoanTokenLogic https://github.com/DistributedCollective/Sovryn-tasks-discussions/discussions/7)

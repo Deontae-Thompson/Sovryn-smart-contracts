@@ -29,11 +29,21 @@ def main():
     '''
 
     # call the function you want here
-    
+   
     ##################################
     #addWhitelistConverterFeeSharingCollectorProxy(conf.contracts['ConverterPOWA'])
 
+    #bal = getBalanceOf(conf.contracts['(WR)BTC/DLLR'], conf.contracts['multisig'])
+    #removeLiquidityV1toMultisigUsingWrapper(conf.contracts['RBTCWrapperProxyWithoutLM'], conf.contracts['ConverterDLLR'], bal, [conf.contracts['WRBTC'], conf.contracts['DLLR']], [6.7,396800e18])
+    #readLendingBalanceForUser(conf.contracts['iDLLR'], conf.contracts['multisig'])
+
+    #readLendingBalanceForUser(conf.contracts['iDLLR'], conf.contracts['multisig'])
+    #amount = readLoanTokenBalanceForUser(conf.contracts['iDLLR'], conf.contracts['multisig'])
+    #removeFromPoolWithMS(conf.contracts['iDLLR'], amount, conf.contracts['multisig'])
+
+    #printMultisigOwners()
     #getExchequerBalances()
+    
     # transferOwnershipFromMultisig(conf.contracts['ConverterPOWA'], conf.contracts['TimelockOwner'])
     # transferOwnershipFromMultisig(conf.contracts['POWAPoolOracle'], conf.contracts['TimelockAdmin'])
     #printV1ConverterData('0x4531DD0f24D204c08b251084E12ce3D3e70Dd03e')
@@ -102,7 +112,7 @@ def main():
     
     #print("fastBTCBiDi.balance()", loadBiDiFastBTC().balance()/1e18)
     #print("getFastBTCOfframpAvailableBalance()", getFastBTCOfframpAvailableBalance()/1e18)
-    #withdrawRBTCFromFastBTCBiDi(25e18, '0xD9ECB390a6a32ae651D5C614974c5570c50A5D89')
+    #withdrawRBTCFromFastBTCBiDi(0.01e18, '0x704c900140726f918dd26a6dc009f18b3283afd9')
     #withdrawRBTCFromFastBTCBiDi(30e18, conf.contracts['multisig'])
     #readPauser(conf.contracts['iXUSD'])
     #getBalance(conf.contracts['DLLR'], '0xAc2D05a148Ab512EDEdc7280C00292ed33D31F1a') ## testnet
@@ -212,7 +222,7 @@ def main():
     #missed = getMissedBalance()
     #transferSOVtoLM(missed)
 
-    #sendTokensFromMultisig(conf.contracts['SOV'], conf.contracts['StakingRewardsProxy'], 430000e18)
+    #sendTokensFromMultisig(conf.contracts['SOV'], conf.contracts['StakingRewardsProxy'], 277347e18)
     #revokeConfirmation(1075)
 
     #withdrawFees()
@@ -257,7 +267,7 @@ def main():
     #getStakes('0x750C49DD9928061Df2224AA81E08Bc4a3c334874')
     #governanceDirectWithdrawVesting('0x750C49DD9928061Df2224AA81E08Bc4a3c334874', conf.contracts['multisig'], 0) // last params is for startFrom arguments
 
-    #addOwnerToMultisig('0x832E1bd30d037d0327F2A0447eD44FB952A9a043')
+    #addOwnerToMultisig('0x9E9C0A0c51e730f6C915f80A145c9312385DCF22')
     #removeOwnerFromMultisig('0x27d55f5668ef4438635bdce0adca083507e77752')
 
     
