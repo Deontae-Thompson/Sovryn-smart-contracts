@@ -43,7 +43,7 @@ def main():
 
     #printMultisigOwners()
     #getExchequerBalances()
-    
+
     # transferOwnershipFromMultisig(conf.contracts['ConverterPOWA'], conf.contracts['TimelockOwner'])
     # transferOwnershipFromMultisig(conf.contracts['POWAPoolOracle'], conf.contracts['TimelockAdmin'])
     #printV1ConverterData('0x4531DD0f24D204c08b251084E12ce3D3e70Dd03e')
@@ -238,6 +238,8 @@ def main():
     #withdrawRBTCFromWatcher(6e18, conf.contracts['FastBTC'])
     #redeemFromAggregatorWithMS(conf.contracts['XUSDAggregatorProxy'], conf.contracts['DLLR'], 16658.600400155126 * 10**18)
     #mintAggregatedTokenWithMS(conf.contracts['DLLRAggregatorProxy'], conf.contracts['ZUSD'], 249999e18)
+    #bal = getBalanceOf(conf.contracts['DLLR'], conf.contracts['multisig'])
+    #redeemFromAggregatorWithMS(conf.contracts['DLLRAggregatorProxy'], conf.contracts['ZUSD'], bal)
     #minReturn = getReturnForFirstLiquidityProvisionOnV1([10e18, 250000e18])
     #addLiquidityV1FromMultisigUsingWrapper(conf.contracts['RBTCWrapperProxyWithoutLM'], conf.contracts['ConverterDLLR'], [conf.contracts['WRBTC'], conf.contracts['DLLR']], [0.1e18,2500e18] , 1)
     #acceptOwnershipWithMultisig(conf.contracts['ConverterDLLR'])
