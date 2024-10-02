@@ -185,4 +185,13 @@ def transferTokens(tokenAddress, amount):
     data = feeSharingCollector.transferTokens.encode_input(tokenAddress, amount)
     sendWithMultisig(conf.contracts['multisig'], feeSharingCollector.address , data, conf.acct)
 
+def withdrawFromMerkleDistributor(merkleDistributor, tokens, amounts, recipient):
+    abiFile =  open('./scripts/contractInteraction/ABIs/MerkleDistributor.json')
+    abi = json.load(abiFile)
+    md = Contract.from_abi("MerkleDistributor", address=merkleDistributor, abi=abi, owner=conf.acct)
+    #function withdraw(address[] calldata tokens, uint256[] calldata amounts, address recipient)
+    data = md.withdraw.encode_input(tokens, amounts, recipient)
+    print(data)
+    sendWithMultisig(conf.contracts['multisig'], md.address, data, conf.acct)
+
 

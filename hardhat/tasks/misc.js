@@ -247,7 +247,7 @@ task("getBalanceOfAccounts", "Get ERC20 or native token balance of account or ad
                     const balance = await ethers.provider.getBalance(accountAddress);
                     logger.success(
                         `RBTC balance of the account ${account} (${accountAddress}): 
-                        ${balance / (decimals ? 1e18 : 1)}`
+                        ${balance / (decimals ? 1e18 : 1)} ${decimals ? "(" + balance + ")" : ""}`
                     );
                 } else {
                     const tokenContract = ethers.utils.isAddress(token)
@@ -265,7 +265,7 @@ task("getBalanceOfAccounts", "Get ERC20 or native token balance of account or ad
                         `${tokenSymbol} (${
                             tokenContract.address
                         }) balance of the account ${account} (${accountAddress}): 
-                        ${balance / decimalsDivider}`
+                        ${balance / decimalsDivider} (${balance})`
                     );
                 }
             }

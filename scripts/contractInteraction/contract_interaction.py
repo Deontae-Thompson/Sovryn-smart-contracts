@@ -29,8 +29,15 @@ def main():
     '''
 
     # call the function you want here
-   
+    
     ##################################
+    
+    #transferRBTCFromFastBTCOffRampToOnRamp(12e18)
+    #sendTokensFromMultisig(conf.contracts['POWA'], '0x5744eB85eB99aAE7ff8ce12Cff423c8b39733ddC', 3269230769.230769*10**18)
+    # bal = 238563927653782540924338044928
+    # withdrawFromMerkleDistributor('0x0d33b91738d97341364ee43e8ff84fb9f9013ce6',[conf.contracts['POWA']], [bal], conf.contracts['multisig'])
+   
+    #sendTokensFromMultisig(conf.contracts['POWA'],'0x51b2378BD771da5F4f4fdEa0C433c4d5e6dA6917',325242050943e18)
     #addWhitelistConverterFeeSharingCollectorProxy(conf.contracts['ConverterPOWA'])
 
     #bal = getBalanceOf(conf.contracts['(WR)BTC/DLLR'], conf.contracts['multisig'])
@@ -112,7 +119,7 @@ def main():
     
     #print("fastBTCBiDi.balance()", loadBiDiFastBTC().balance()/1e18)
     #print("getFastBTCOfframpAvailableBalance()", getFastBTCOfframpAvailableBalance()/1e18)
-    #withdrawRBTCFromFastBTCBiDi(0.01e18, '0x704c900140726f918dd26a6dc009f18b3283afd9')
+    #withdrawRBTCFromFastBTCBiDi(30e18, '0x704c900140726f918dd26a6dc009f18b3283afd9')
     #withdrawRBTCFromFastBTCBiDi(30e18, conf.contracts['multisig'])
     #readPauser(conf.contracts['iXUSD'])
     #getBalance(conf.contracts['DLLR'], '0xAc2D05a148Ab512EDEdc7280C00292ed33D31F1a') ## testnet
