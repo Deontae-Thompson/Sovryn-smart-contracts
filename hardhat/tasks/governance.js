@@ -73,11 +73,12 @@ async function getVotingPower(hre, stakerAddress, governorDeploymentName, blockN
     return { blockNumber, stakerAddress, balance, votingPower, proposalThreshold };
 }
 
-async function createVestings(hre, dryRun, path, multiplier, signerAcc) {
+async function createVestings(hre, dryRun, path, multiplier, signerAcc, reissue = false) {
     /*
      * vested token sender script - takes addresses from the file by path
      * dryRun - true to check that the data will be processed correctly, false - execute distribution
      * multiplier - usually 10**16 considering the amount format should have 2 decimals
+     * reIssue - re-issue team vestings: use to bypass deriving vesting creation type from vesting periods when need just to re-issue vestings to another address with the actual periods left
      */
 
     const { ethers } = hre;
@@ -118,7 +119,10 @@ async function createVestings(hre, dryRun, path, multiplier, signerAcc) {
         console.log("(duration - cliff) / FOUR_WEEKS + 1", (duration - cliff) / FOUR_WEEKS + 1);
 
         let vestingCreationType = 0;
-        if (teamVesting[3] === 10) {
+        if (reissue) {
+            vestingCreationType = 5;
+            console.log("Make sure you are re-issuing team vesting contracts!");
+        } else if (teamVesting[3] === 10) {
             vestingCreationType = 3;
         } else if (teamVesting[3] === 26) {
             vestingCreationType = 1;
@@ -353,10 +357,11 @@ task("governance:createVestings", "Create vestings")
     .addParam("path", "The file path")
     .addParam("decimals", "Number of decimals for amount", 2, types.int)
     .addFlag("dryRun", "Dry run")
+    .addFlag("reIssue", "Re-issuing vestings to another address")
     .addOptionalParam("signer", "Signer name: 'signer' or 'deployer'", "deployer")
-    .setAction(async ({ path, signer, dryRun, decimals }, hre) => {
+    .setAction(async ({ path, signer, dryRun, decimals, reIssue }, hre) => {
         const multiplier = (10 ** (18 - decimals)).toString();
-        await createVestings(hre, dryRun, path, multiplier, signer);
+        await createVestings(hre, dryRun, path, multiplier, signer, reIssue ? true : false);
     });
 
 const VestingType = {

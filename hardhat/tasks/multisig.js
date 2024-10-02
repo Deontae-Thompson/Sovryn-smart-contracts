@@ -250,6 +250,25 @@ task("multisig:add-owner", "Add or remove multisig owner")
         await multisigAddOwner(address, signerAcc);
     });
 
+task("multisig:get-owners", "Print multisig owners")
+    .addOptionalParam("multisig", "Multisig address", "MultiSigWallet")
+    .setAction(async ({ multisig }, hre) => {
+        const { ethers } = hre;
+        if (!ethers.utils.isAddress(multisig)) {
+            multisig = ethers.constants.AddressZero;
+        }
+        const code = await ethers.provider.getCode(multisig);
+        if (code === "0x") {
+            multisig = ethers.constants.AddressZero;
+        }
+        const ms =
+            multisig === ethers.constants.AddressZero
+                ? await ethers.getContract("MultiSigWallet")
+                : await ethers.getContractAt("MultiSigWallet", multisig);
+        //const multisigContract = await ethers.getContract(multisig);
+        logger.info("Owners: ", await ms.getOwners());
+    });
+
 task("multisig:remove-owner", "Add or remove multisig owner")
     .addParam("address", "Owner address to add or remove", undefined, types.string)
     .addOptionalParam("signer", "Signer name: 'signer' or 'deployer'", "deployer")
