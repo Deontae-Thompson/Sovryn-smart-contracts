@@ -1104,6 +1104,159 @@ const getArgsSIP0077 = async (hre) => {
     return { args, governor: "GovernorAdmin" };
 };
 
+const getArgsSip0080 = async (hre) => {
+    const {
+        ethers,
+        deployments: { get, log },
+    } = hre;
+
+    const abiCoder = new ethers.utils.AbiCoder();
+    const priceFeeds = await ethers.getContract("PriceFeeds");
+    const priceFeedsOwner = await priceFeeds.owner();
+
+    const wrbtcAddress = (await get("WRBTC")).address;
+    const priceFeedMocAddress = (await get("PriceFeedsMoc")).address;
+
+    const args = {
+        targets: [priceFeeds.address],
+        targetOwnerValidationAddresses: [priceFeedsOwner],
+        values: [0],
+        signatures: ["setPriceFeed(address[],address[])"],
+        data: [
+            abiCoder.encode(["address[]", "address[]"], [[wrbtcAddress], [priceFeedMocAddress]]),
+        ],
+        description:
+            // @todo update description
+            "SIP-0080: Update MoCPriceFeeds, Details: https://github.com/DistributedCollective/SIPS/blob/8cb4f72/SIP-0080.md, sha256: ",
+    };
+    return { args, governor: "GovernorAdmin" };
+};
+
+const getArgsSip0081 = async (hre) => {
+    const {
+        ethers,
+        deployments: { get },
+    } = hre;
+    const abiCoder = new ethers.utils.AbiCoder();
+    const zeroPriceFeedRevertOnStalePriceAddress = (await get("ZeroPriceFeedRevertOnStalePrice"))
+        .address;
+
+    const stabilityPoolProxy = await ethers.getContract("StabilityPool_Proxy");
+    const borrowerOperationsProxy = await ethers.getContract("BorrowerOperations_Proxy");
+    const troveManagerProxy = await ethers.getContract("TroveManager_Proxy");
+    const communityIssuanceProxy = await ethers.getContract("CommunityIssuance_Proxy");
+
+    const stabilityPool = await ethers.getContract("StabilityPool");
+    const borrowerOperations = await ethers.getContract("BorrowerOperations");
+    const troveManager = await ethers.getContract("TroveManager");
+    const communityIssuance = await ethers.getContract("CommunityIssuance");
+
+    const args = {
+        targets: [
+            communityIssuanceProxy.address,
+            borrowerOperationsProxy.address,
+            troveManagerProxy.address,
+            stabilityPoolProxy.address,
+        ],
+        targetOwnerValidationAddresses: [
+            await communityIssuanceProxy.getOwner(),
+            await borrowerOperationsProxy.getOwner(),
+            await troveManagerProxy.getOwner(),
+            await stabilityPoolProxy.getOwner(),
+        ],
+        values: [0, 0, 0, 0],
+        signatures: [
+            "setPriceFeed(address)",
+            "setAddresses(address,address,address,address,address,address,address,address,address,address,address,address)",
+            "setAddresses((address,address,address,address,address,address,address,address,address,address,address,address,address,address))",
+            "setAddresses(address,address,address,address,address,address,address,address)",
+        ],
+        data: [
+            abiCoder.encode(["address"], [zeroPriceFeedRevertOnStalePriceAddress]),
+            abiCoder.encode(
+                [
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                ],
+                [
+                    await borrowerOperations.feeDistributor(),
+                    await borrowerOperations.liquityBaseParams(),
+                    await borrowerOperations.troveManager(),
+                    await borrowerOperations.activePool(),
+                    await borrowerOperations.defaultPool(),
+                    "0xd46C0225D1331B46700d64fF8c906709D15C9202", // borrowerOperations.stabilityPoolAddress (cast storage 0x5B9dB4B8bdeF3e57323187a9AC2639C5DEe5FD39 5 --rpc-url https://mainnet-dev.sovryn.app/rpc)
+                    "0x58aa11ed8d9c8574b5e2d201dc1a56f1e2155735", // borrowerOperations.gasPoolAddress (cast storage 0x5B9dB4B8bdeF3e57323187a9AC2639C5DEe5FD39 6 --rpc-url https://mainnet-dev.sovryn.app/rpc)
+                    "0x310ec7fe6e4943da773de8948255e37cc45e34bb", // borrowerOperations.collSurplusPool (cast storage 0x5B9dB4B8bdeF3e57323187a9AC2639C5DEe5FD39 7 --rpc-url https://mainnet-dev.sovryn.app/rpc)
+                    zeroPriceFeedRevertOnStalePriceAddress,
+                    await borrowerOperations.sortedTroves(),
+                    await borrowerOperations.zusdToken(),
+                    await borrowerOperations.zeroStakingAddress(),
+                ]
+            ),
+            abiCoder.encode(
+                [
+                    "tuple(address,address,address,address,address,address,address,address,address,address,address,address,address,address)",
+                ],
+                [
+                    [
+                        await troveManager.feeDistributor(),
+                        await troveManager.troveManagerRedeemOps(),
+                        await troveManager.liquityBaseParams(),
+                        await troveManager.borrowerOperationsAddress(),
+                        await troveManager.activePool(),
+                        await troveManager.defaultPool(),
+                        await troveManager._stabilityPool(),
+                        "0x58aa11ed8d9c8574b5e2d201dc1a56f1e2155735", // troveManager.gasPoolAddress (cast storage 0x5B9dB4B8bdeF3e57323187a9AC2639C5DEe5FD39 7 --rpc-url https://mainnet-dev.sovryn.app/rpc)
+                        "0x310ec7fe6e4943da773de8948255e37cc45e34bb", // troveManager.collSurplusPool (cast storage 0x5B9dB4B8bdeF3e57323187a9AC2639C5DEe5FD39 8 --rpc-url https://mainnet-dev.sovryn.app/rpc)
+                        zeroPriceFeedRevertOnStalePriceAddress,
+                        await troveManager._zusdToken(),
+                        await troveManager.sortedTroves(),
+                        await troveManager._zeroToken(),
+                        await troveManager._zeroStaking(),
+                    ],
+                ]
+            ),
+            abiCoder.encode(
+                [
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                    "address",
+                ],
+                [
+                    await stabilityPool.liquityBaseParams(),
+                    await stabilityPool.borrowerOperations(),
+                    await stabilityPool.troveManager(),
+                    await stabilityPool.activePool(),
+                    await stabilityPool.zusdToken(),
+                    await stabilityPool.sortedTroves(),
+                    zeroPriceFeedRevertOnStalePriceAddress,
+                    await stabilityPool.communityIssuance(),
+                ]
+            ),
+        ],
+        description:
+            // @todo update description
+            "SIP-0081: Update Zero Price Feeds, Details: https://github.com/DistributedCollective/SIPS/blob/8cb4f72/SIP-0081.md, sha256: ",
+    };
+
+    return { args, governor: "GovernorOwner" };
+};
+
 module.exports = {
     sampleGovernorAdminSIP,
     sampleGovernorOwnerSIP,
@@ -1124,4 +1277,6 @@ module.exports = {
     getArgsSip0076,
     getArgsSip0078,
     getArgsSip0079,
+    getArgsSip0080,
+    getArgsSip0081,
 };
