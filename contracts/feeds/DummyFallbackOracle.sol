@@ -11,7 +11,7 @@ interface IExternalPriceFeed {
 /**
  * @dev Dummy Oracle contract that supports MoC medianizer interface (latestAnswer) which will always return (0, false) value
  */
-contract FallbackOracle is IExternalPriceFeed {
+contract DummyFallbackOracle is IExternalPriceFeed {
     constructor() public {}
 
     /**

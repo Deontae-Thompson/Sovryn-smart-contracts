@@ -23,7 +23,7 @@ const PriceFeedsMoCMockup = artifacts.require("PriceFeedsMoCMockup");
 const PriceFeedRSKOracleMockup = artifacts.require("PriceFeedRSKOracleMockup");
 const SwapsImplSovrynSwap = artifacts.require("SwapsImplSovrynSwapModule");
 const SwapsImplSovrynSwapLib = artifacts.require("SwapsImplSovrynSwapLib");
-const FallbackOracle = artifacts.require("FallbackOracle");
+const FallbackOracle = artifacts.require("DummyFallbackOracle");
 
 const {
     getSUSD,

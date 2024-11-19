@@ -1104,7 +1104,7 @@ const getArgsSIP0077 = async (hre) => {
     return { args, governor: "GovernorAdmin" };
 };
 
-const getArgsSip0080 = async (hre) => {
+const getArgsSip0084 = async (hre) => {
     const {
         ethers,
         deployments: { get, log },
@@ -1115,7 +1115,14 @@ const getArgsSip0080 = async (hre) => {
     const priceFeedsOwner = await priceFeeds.owner();
 
     const wrbtcAddress = (await get("WRBTC")).address;
-    const priceFeedMocAddress = (await get("PriceFeedsMoc")).address;
+    const priceFeedMocAddress = (await get("PriceFeedsMoC")).address;
+
+    const currentWrbtcPriceFeed = await priceFeeds.pricesFeeds(wrbtcAddress);
+    if (currentWrbtcPriceFeed.toLowerCase() === priceFeedMocAddress.toLowerCase()) {
+        throw new Error(
+            `new wrbtc priceFeed ${priceFeedMocAddress} could not be the same with the current one ${currentWrbtcPriceFeed}`
+        );
+    }
 
     const args = {
         targets: [priceFeeds.address],
@@ -1127,12 +1134,12 @@ const getArgsSip0080 = async (hre) => {
         ],
         description:
             // @todo update description
-            "SIP-0080: Update MoCPriceFeeds, Details: https://github.com/DistributedCollective/SIPS/blob/8cb4f72/SIP-0080.md, sha256: ",
+            "SIP-0084: Update MoCPriceFeeds, Details: https://github.com/DistributedCollective/SIPS/blob/8cb4f72/SIP-0084.md, sha256: ",
     };
     return { args, governor: "GovernorAdmin" };
 };
 
-const getArgsSip0081 = async (hre) => {
+const getArgsSip0085 = async (hre) => {
     const {
         ethers,
         deployments: { get },
@@ -1140,7 +1147,6 @@ const getArgsSip0081 = async (hre) => {
     const abiCoder = new ethers.utils.AbiCoder();
 
     const zeroPriceFeed = await ethers.getContract("ZeroPriceFeed");
-    const zeroPriceFeedProxy = await ethers.getContract("ZeroPriceFeed_Proxy");
     const zeroPriceFeedImplementation = await ethers.getContract("ZeroPriceFeed_Implementation"); // @todo update the address in the deployment file
 
     const fallbackOracle = await get("FallbackOracle");
@@ -1159,7 +1165,7 @@ const getArgsSip0081 = async (hre) => {
         ],
         description:
             // @todo update description
-            "SIP-0081: Update Zero Price Feeds, Details: https://github.com/DistributedCollective/SIPS/blob/8cb4f72/SIP-0081.md, sha256: ",
+            "SIP-0085: Update Zero Price Feeds, Details: https://github.com/DistributedCollective/SIPS/blob/8cb4f72/SIP-0085.md, sha256: ",
     };
 
     return { args, governor: "GovernorOwner" };
@@ -1185,6 +1191,6 @@ module.exports = {
     getArgsSip0076,
     getArgsSip0078,
     getArgsSip0079,
-    getArgsSip0080,
-    getArgsSip0081,
+    getArgsSip0084,
+    getArgsSip0085,
 };

@@ -24,6 +24,8 @@ const func = async function (hre) {
     log(col.bgYellow("Transferring ownership of priceFeedsMoC to governor admin..."));
     await priceFeedsMoC.transferOwnership(governorAdmin.address);
     log(col.bgYellow(`New priceFeedsMoC owner ${await priceFeedsMoC.owner()}`));
+
+    log(col.bgYellow("SIP is required to activate this new PriceFeedsMoC contract!!!"));
 };
 func.tags = ["PriceFeedsMoC"];
 module.exports = func;

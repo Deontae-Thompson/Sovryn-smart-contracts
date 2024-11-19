@@ -1,7 +1,7 @@
 // first run a local forked mainnet node in a separate terminal window:
 //     npx hardhat node --fork https://mainnet-dev.sovryn.app/rpc --no-deploy
 // now run the test:
-//     npx hardhat test tests-onchain/sip0080.test.js --network rskForkedMainnet
+//     npx hardhat test tests-onchain/sip0084.test.js --network rskForkedMainnet
 
 const {
     impersonateAccount,
@@ -26,7 +26,7 @@ const getImpersonatedSigner = async (addressToImpersonate) => {
     return await ethers.getSigner(addressToImpersonate);
 };
 
-describe("SIP-0080 test onchain", () => {
+describe("SIP-0084 test onchain", () => {
     const getImpersonatedSignerFromJsonRpcProvider = async (addressToImpersonate) => {
         const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
         await provider.send("hardhat_impersonateAccount", [addressToImpersonate]);
@@ -79,8 +79,8 @@ describe("SIP-0080 test onchain", () => {
         };
     });
 
-    describe("SIP-0080 Test creation and execution", () => {
-        it("SIP-0080 is executable and valid", async () => {
+    describe("SIP-0084 Test creation and execution", () => {
+        it("SIP-0084 is executable and valid", async () => {
             if (!hre.network.tags["forked"]) {
                 console.error("ERROR: Must run on a forked net");
                 return;
@@ -126,7 +126,7 @@ describe("SIP-0080 test onchain", () => {
 
             // CREATE PROPOSAL AND VERIFY
             const proposalIdBeforeSIP = await governorAdmin.latestProposalIds(deployer);
-            await hre.run("sips:create", { argsFunc: "getArgsSip0080" });
+            await hre.run("sips:create", { argsFunc: "getArgsSip0084" });
             const proposalId = await governorAdmin.latestProposalIds(deployer);
             expect(
                 proposalId,
@@ -159,12 +159,13 @@ describe("SIP-0080 test onchain", () => {
             // VERIFY execution
             expect((await governorAdmin.proposals(proposalId)).executed).to.be.true;
 
-            const expectedWrbtcPriceFeed = await get("PriceFeedsMoc");
+            const expectedWrbtcPriceFeed = await get("PriceFeedsMoC");
             const latestWrbtcPriceFeeds = await priceFeeds.pricesFeeds(wrbtc.address);
 
             console.log(`latest WRBTC priceFeeds: ${latestWrbtcPriceFeeds}`);
             console.log(`expected WRBTC priceFeeds: ${expectedWrbtcPriceFeed.address}`);
 
+            expect(latestWrbtcPriceFeeds).to.equal(previousWrbtcPriceFeeds);
             expect(expectedWrbtcPriceFeed.address).to.equal(latestWrbtcPriceFeeds);
         });
     });

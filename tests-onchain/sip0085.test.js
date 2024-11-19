@@ -1,7 +1,7 @@
 // first run a local forked mainnet node in a separate terminal window:
 //     npx hardhat node --fork https://mainnet-dev.sovryn.app/rpc --no-deploy
 // now run the test:
-//     npx hardhat test tests-onchain/sip0081.test.js --network rskForkedMainnet
+//     npx hardhat test tests-onchain/sip0085.test.js --network rskForkedMainnet
 
 const {
     impersonateAccount,
@@ -26,7 +26,7 @@ const getImpersonatedSigner = async (addressToImpersonate) => {
     return await ethers.getSigner(addressToImpersonate);
 };
 
-describe("SIP-0081 test onchain", () => {
+describe("SIP-0085 test onchain", () => {
     const getImpersonatedSignerFromJsonRpcProvider = async (addressToImpersonate) => {
         const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
         await provider.send("hardhat_impersonateAccount", [addressToImpersonate]);
@@ -80,7 +80,7 @@ describe("SIP-0081 test onchain", () => {
     });
 
     describe("SIP-001 Test creation and execution", () => {
-        it("SIP-0081 is executable and valid", async () => {
+        it("SIP-0085 is executable and valid", async () => {
             if (!hre.network.tags["forked"]) {
                 console.error("ERROR: Must run on a forked net");
                 return;
@@ -126,7 +126,7 @@ describe("SIP-0081 test onchain", () => {
 
             // CREATE PROPOSAL AND VERIFY
             const proposalIdBeforeSIP = await governorOwner.latestProposalIds(deployer);
-            await hre.run("sips:create", { argsFunc: "getArgsSip0081" });
+            await hre.run("sips:create", { argsFunc: "getArgsSip0085" });
             const proposalId = await governorOwner.latestProposalIds(deployer);
             expect(
                 proposalId,

@@ -7,13 +7,14 @@ const func = async function (hre) {
         getNamedAccounts,
     } = hre;
     const { deployer } = await getNamedAccounts(); //await ethers.getSigners();
-    log(col.bgYellow("Deploying FallbackOracle..."));
+    log(col.bgYellow("Deploying DummyFallbackOracle..."));
     await deploy("FallbackOracle", {
+        contract: "DummyFallbackOracle",
         from: deployer,
         args: [],
         log: true,
         skipIfAlreadyDeployed: true,
     });
 };
-func.tags = ["FallbackOracle"];
+func.tags = ["DummyFallbackOracle"];
 module.exports = func;

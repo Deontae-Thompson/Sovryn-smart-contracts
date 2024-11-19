@@ -1,7 +1,7 @@
 pragma solidity 0.5.17;
 
-import "../PriceFeeds.sol";
-import "../../openzeppelin/Address.sol";
+import "./PriceFeeds.sol";
+import "../openzeppelin/Address.sol";
 
 interface Medianizer {
     function peek() external view returns (bytes32, bool);

@@ -1,339 +1,88 @@
 {
     "_format": "hh-sol-artifact-1",
-    "contractName": "PriceFeedsMoc",
+    "contractName": "PriceFeedsMoC",
     "description": "Money Onchain Price Feed",
-    "sourceName": "contracts/feeds/IPriceFeeds.sol",
+    "sourceName": "contracts/feeds/PriceFeedsMoC.sol",
     "address": "0x391fe8a92a7FC626A25F30E8c19B92bf8BE37FD3",
     "abi": [
         {
-            "constant": true,
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "Token",
+                    "name": "_mocOracleAddress",
                     "type": "address"
                 },
                 {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "amountInEth",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "ethAmount",
-                    "type": "uint256"
+                    "internalType": "address",
+                    "name": "_rskOracleAddress",
+                    "type": "address"
                 }
             ],
             "payable": false,
-            "stateMutability": "view",
-            "type": "function"
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "mocOracleAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "changerAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "SetMoCOracleAddress",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "rskOracleAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "changerAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "SetRSKOracleAddress",
+            "type": "event"
         },
         {
             "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "sourceToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "destToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "sourceAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "destAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "maxSlippage",
-                    "type": "uint256"
-                }
-            ],
-            "name": "checkPriceDisagreement",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "sourceToDestSwapRate",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "loanToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "collateralToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "loanAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "collateralAmount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getCurrentMargin",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "currentMargin",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "collateralToLoanRate",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "loanToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "collateralToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "loanAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "collateralAmount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getCurrentMarginAndCollateralSize",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "currentMargin",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "collateralInEthAmount",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "payToken",
-                    "type": "address"
-                }
-            ],
-            "name": "getFastGasPrice",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "loanToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "collateralToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "loanAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "collateralAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "maintenanceMargin",
-                    "type": "uint256"
-                }
-            ],
-            "name": "getMaxDrawdown",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "sourceToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "destToken",
-                    "type": "address"
-                }
-            ],
-            "name": "queryPrecision",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "precision",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "sourceToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "destToken",
-                    "type": "address"
-                }
-            ],
-            "name": "queryRate",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "rate",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "precision",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "sourceToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "destToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "sourceAmount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "queryReturn",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "destAmount",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "loanToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "collateralToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "loanAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "collateralAmount",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "maintenanceMargin",
-                    "type": "uint256"
-                }
-            ],
-            "name": "shouldLiquidate",
+            "inputs": [],
+            "name": "isOwner",
             "outputs": [
                 {
                     "internalType": "bool",
@@ -343,6 +92,111 @@
             ],
             "payable": false,
             "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "latestAnswer",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "mocOracleAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "rskOracleAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_mocOracleAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setMoCOracleAddress",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_rskOracleAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "setRSKOracleAddress",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
             "type": "function"
         }
     ],
