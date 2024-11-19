@@ -1149,6 +1149,16 @@ const getArgsSip0085 = async (hre) => {
     const zeroPriceFeed = await ethers.getContract("ZeroPriceFeed");
     const zeroPriceFeedImplementation = await ethers.getContract("ZeroPriceFeed_Implementation"); // @todo update the address in the deployment file
 
+    const currentZeroPriceFeedImplementation = await zeroPriceFeed.getImplementation();
+    if (
+        currentZeroPriceFeedImplementation.toLowerCase() ===
+        zeroPriceFeedImplementation.address.toLowerCase()
+    ) {
+        throw new Error(
+            `new zero priceFeed implementation ${zeroPriceFeedImplementation.address} could not be the same with the current one ${currentZeroPriceFeedImplementation}`
+        );
+    }
+
     const fallbackOracle = await get("FallbackOracle");
 
     const args = {

@@ -13,7 +13,6 @@ const func = async function (hre) {
         from: deployer,
         args: [],
         log: true,
-        skipIfAlreadyDeployed: true,
     });
 };
 func.tags = ["DummyFallbackOracle"];
