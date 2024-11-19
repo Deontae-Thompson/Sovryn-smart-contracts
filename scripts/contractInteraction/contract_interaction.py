@@ -32,7 +32,19 @@ def main():
     
     ##################################
     
-    #transferRBTCFromFastBTCOffRampToOnRamp(12e18)
+    ### swap BPro -> WRBTC on Watcher
+    # withdrawTokensFromWatcher(conf.contracts["BPro"], 1.15e18, conf.contracts["multisig"])
+    # swapTokensWithMultisig(1.15e18,1.3e18,conf.contracts['BPro'],conf.contracts['WRBTC'])
+    # sendFromMultisig(conf.contracts['Watcher'], 1e18)
+    #################################
+
+    #readPriceFromOracle()
+    #cancelProposal('GovernorOwner', 47) # type == 'GovernorOwner' or 'GovernorAdmin'; proposalId - proposal ordered number
+    #replaceOwnerOnMultisig("0x832E1bd30d037d0327F2A0447eD44FB952A9a043", "0xaaa5a190ACCbc50F4F9c130b5876521E4D5F9D6c")
+    #checkRates()
+    
+    #transferRBTCFromFastBTCOffRampToOnRamp(15e18)
+    #withdrawRBTCFromFastBTCBiDi(20e18, "0xD9ECB390a6a32ae651D5C614974c5570c50A5D89") #send to jamie to refill FastBTC on bitcoin
     #sendTokensFromMultisig(conf.contracts['POWA'], '0x5744eB85eB99aAE7ff8ce12Cff423c8b39733ddC', 3269230769.230769*10**18)
     # bal = 238563927653782540924338044928
     # withdrawFromMerkleDistributor('0x0d33b91738d97341364ee43e8ff84fb9f9013ce6',[conf.contracts['POWA']], [bal], conf.contracts['multisig'])
@@ -136,6 +148,7 @@ def main():
     #sendTokensFromMultisig(conf.contracts['XUSD'], conf.contracts['Watcher'], 300000e18)
     #sendTokensFromMultisig(conf.contracts['SOV'], '0x4f3948816785e30c3378eD3b9F2de034e3AE2E97', 250000e18)
     #sendFromMultisig(conf.contracts['GenericTokenSender'], 0.014e18)
+    #sendFromMultisig(conf.contracts['Watcher'], 0.2e18) #refill the Watcher to pay gas for liquidations
     #sendFromMultisig('0x3a680a34aea376501ba19dccc0d99e972357945b', 0.05e18) #lending pool positions liquidator
     #sendFromMultisig('0xc0AAcbDB9Ce627A348B91CfDB67eC6b2FBC3dCbd', 0.1e18)
     #sendFromMultisig(conf.contracts['FastBTC'], 6e18)

@@ -119,8 +119,8 @@ def checkRates():
     readSwapRate(conf.contracts['DoC'], conf.contracts['WRBTC'])
 
     print("price from the USDT oracle on AMM:")
-    readPriceFromOracle('0x78F0b35Edd78eD564830c45F4A22e4b553d7f042')
-
+    readPriceFromOracle('0xf37963592635c020E0AD3313bA39C9BA627a3FB5') # USDT oracle https://github.com/DistributedCollective/oracle-based-amm/blob/deployment/converters/solidity/utils/addUSDT.json#L13
+    #readPriceFromOracle('0x78F0b35Edd78eD564830c45F4A22e4b553d7f042')
     readTargetWeights('0x133eBE9c8bA524C9B1B601E794dF527f390729bF', conf.contracts['USDT'])
     readTargetWeights('0x133eBE9c8bA524C9B1B601E794dF527f390729bF', conf.contracts['WRBTC'])
 
