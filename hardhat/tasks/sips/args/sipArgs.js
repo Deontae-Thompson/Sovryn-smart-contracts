@@ -1104,7 +1104,7 @@ const getArgsSIP0077 = async (hre) => {
     return { args, governor: "GovernorAdmin" };
 };
 
-const getArgsSip0084 = async (hre) => {
+const getArgsSip0084Part1 = async (hre) => {
     const {
         ethers,
         deployments: { get, log },
@@ -1134,12 +1134,12 @@ const getArgsSip0084 = async (hre) => {
         ],
         description:
             // @todo update description
-            "SIP-0084: Update MoCPriceFeeds, Details: https://github.com/DistributedCollective/SIPS/blob/8cb4f72/SIP-0084.md, sha256: ",
+            "SIP-0084: Update Oracle Part 1 (MoCPriceFeeds), Details: https://github.com/DistributedCollective/SIPS/blob/SIP-0084/SIP-0084_part-1.md, sha256: fb068693f3cfc4adbaf492ba9684a829193db6e95c699858902ab04e883cca81",
     };
     return { args, governor: "GovernorAdmin" };
 };
 
-const getArgsSip0085 = async (hre) => {
+const getArgsSip0084Part2 = async (hre) => {
     const {
         ethers,
         deployments: { get },
@@ -1174,8 +1174,7 @@ const getArgsSip0085 = async (hre) => {
             abiCoder.encode(["uint8", "address"], [1, fallbackOracle.address]),
         ],
         description:
-            // @todo update description
-            "SIP-0085: Update Zero Price Feeds, Details: https://github.com/DistributedCollective/SIPS/blob/8cb4f72/SIP-0085.md, sha256: ",
+            "SIP-0084: Update Oracle Part 2 (Zero Price Feeds), Details: https://github.com/DistributedCollective/SIPS/blob/SIP-0084/SIP-0084_part-2.md, sha256: 9014a463e6f87916e89db8dc86e8295ae9ed5d8aa8ec5187c3cddf14ae88f162",
     };
 
     return { args, governor: "GovernorOwner" };
@@ -1201,6 +1200,6 @@ module.exports = {
     getArgsSip0076,
     getArgsSip0078,
     getArgsSip0079,
-    getArgsSip0084,
-    getArgsSip0085,
+    getArgsSip0084Part1,
+    getArgsSip0084Part2,
 };

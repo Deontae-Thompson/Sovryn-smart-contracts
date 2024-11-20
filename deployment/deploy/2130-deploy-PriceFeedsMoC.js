@@ -4,7 +4,7 @@ const col = require("cli-color");
 const func = async function (hre) {
     const {
         ethers,
-        deployments: { deploy, log },
+        deployments: { deploy, log, get },
         getNamedAccounts,
     } = hre;
     const { deployer } = await getNamedAccounts(); //await ethers.getSigners();
@@ -20,9 +20,9 @@ const func = async function (hre) {
     });
 
     const priceFeedsMoC = await ethers.getContract("PriceFeedsMoC");
-    const governorAdmin = await get("GovernorAdmin");
+    const timelockAdmin = await get("TimelockAdmin");
     log(col.bgYellow("Transferring ownership of priceFeedsMoC to governor admin..."));
-    await priceFeedsMoC.transferOwnership(governorAdmin.address);
+    await priceFeedsMoC.transferOwnership(timelockAdmin.address);
     log(col.bgYellow(`New priceFeedsMoC owner ${await priceFeedsMoC.owner()}`));
 
     log(col.bgYellow("SIP is required to activate this new PriceFeedsMoC contract!!!"));

@@ -1,7 +1,7 @@
 // first run a local forked mainnet node in a separate terminal window:
 //     npx hardhat node --fork https://mainnet-dev.sovryn.app/rpc --no-deploy
 // now run the test:
-//     npx hardhat test tests-onchain/sip0085.test.js --network rskForkedMainnet
+//     npx hardhat test tests-onchain/sip0084Part1.test.js --network rskForkedMainnet
 
 const {
     impersonateAccount,
@@ -26,7 +26,7 @@ const getImpersonatedSigner = async (addressToImpersonate) => {
     return await ethers.getSigner(addressToImpersonate);
 };
 
-describe("SIP-0085 test onchain", () => {
+describe("SIP-0084 Part 1 test onchain", () => {
     const getImpersonatedSignerFromJsonRpcProvider = async (addressToImpersonate) => {
         const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
         await provider.send("hardhat_impersonateAccount", [addressToImpersonate]);
@@ -48,16 +48,16 @@ describe("SIP-0085 test onchain", () => {
         const staking = await ethers.getContract("Staking", deployerSigner);
         const sovrynProtocol = await ethers.getContract("SovrynProtocol", deployerSigner);
 
-        const god = await deployments.get("GovernorOwner");
-        const governorOwner = await ethers.getContractAt(
+        const god = await deployments.get("GovernorAdmin");
+        const governorAdmin = await ethers.getContractAt(
             "GovernorAlpha",
             god.address,
             deployerSigner
         );
-        const governorOwnerSigner = await getImpersonatedSigner(god.address);
+        const governorAdminSigner = await getImpersonatedSigner(god.address);
 
-        await setBalance(governorOwnerSigner.address, ONE_RBTC);
-        const timelockOwner = await ethers.getContract("TimelockOwner", governorOwnerSigner);
+        await setBalance(governorAdminSigner.address, ONE_RBTC);
+        const timelockOwner = await ethers.getContract("TimelockOwner", governorAdminSigner);
 
         const timelockOwnerSigner = await getImpersonatedSignerFromJsonRpcProvider(
             timelockOwner.address
@@ -70,8 +70,8 @@ describe("SIP-0085 test onchain", () => {
             deployerSigner,
             staking,
             sovrynProtocol,
-            governorOwner,
-            governorOwnerSigner,
+            governorAdmin,
+            governorAdminSigner,
             timelockOwner,
             timelockOwnerSigner,
             multisigAddress,
@@ -79,8 +79,8 @@ describe("SIP-0085 test onchain", () => {
         };
     });
 
-    describe("SIP-001 Test creation and execution", () => {
-        it("SIP-0085 is executable and valid", async () => {
+    describe("SIP-0084 Part 1 Test creation and execution", () => {
+        it("SIP-0084 Part 1 is executable and valid", async () => {
             if (!hre.network.tags["forked"]) {
                 console.error("ERROR: Must run on a forked net");
                 return;
@@ -91,7 +91,7 @@ describe("SIP-0085 test onchain", () => {
                     {
                         forking: {
                             jsonRpcUrl: "https://mainnet-dev.sovryn.app/rpc",
-                            blockNumber: 6920300,
+                            blockNumber: 6926710,
                         },
                     },
                 ],
@@ -101,7 +101,7 @@ describe("SIP-0085 test onchain", () => {
                 deployer,
                 deployerSigner,
                 staking,
-                governorOwner,
+                governorAdmin,
                 timelockOwnerSigner,
                 multisigAddress,
                 multisigSigner,
@@ -125,45 +125,48 @@ describe("SIP-0085 test onchain", () => {
             await mine();
 
             // CREATE PROPOSAL AND VERIFY
-            const proposalIdBeforeSIP = await governorOwner.latestProposalIds(deployer);
-            await hre.run("sips:create", { argsFunc: "getArgsSip0085" });
-            const proposalId = await governorOwner.latestProposalIds(deployer);
+            const proposalIdBeforeSIP = await governorAdmin.latestProposalIds(deployer);
+            await hre.run("sips:create", { argsFunc: "getArgsSip0084Part1" });
+            const proposalId = await governorAdmin.latestProposalIds(deployer);
             expect(
                 proposalId,
                 "Proposal was not created. Check the SIP creation is not commented out."
             ).is.gt(proposalIdBeforeSIP);
 
             // VOTE FOR PROPOSAL
+
             await mine();
-            await governorOwner.connect(deployerSigner).castVote(proposalId, true);
+            await governorAdmin.connect(deployerSigner).castVote(proposalId, true);
 
             // QUEUE PROPOSAL
-            let proposal = await governorOwner.proposals(proposalId);
+            let proposal = await governorAdmin.proposals(proposalId);
             await mine(proposal.endBlock);
-            await governorOwner.queue(proposalId);
+            await governorAdmin.queue(proposalId);
+
+            const wrbtc = await ethers.getContract("WRBTC");
+            const priceFeeds = await ethers.getContract("PriceFeeds");
+            const previousWrbtcPriceFeeds = await priceFeeds.pricesFeeds(wrbtc.address);
+
+            console.log(`previous WRBTC priceFeeds: ${previousWrbtcPriceFeeds}`);
 
             // EXECUTE PROPOSAL
-            proposal = await governorOwner.proposals(proposalId);
+            proposal = await governorAdmin.proposals(proposalId);
             await time.increaseTo(proposal.eta);
-            await expect(governorOwner.execute(proposalId))
-                .to.emit(governorOwner, "ProposalExecuted")
+            await expect(governorAdmin.execute(proposalId))
+                .to.emit(governorAdmin, "ProposalExecuted")
                 .withArgs(proposalId);
 
             // VERIFY execution
-            expect((await governorOwner.proposals(proposalId)).executed).to.be.true;
+            expect((await governorAdmin.proposals(proposalId)).executed).to.be.true;
 
-            const newZeroPriceFeedImplementation = await ethers.getContract(
-                "ZeroPriceFeed_Implementation"
-            ); // @todo update the address in the deployment file
+            const expectedWrbtcPriceFeed = await get("PriceFeedsMoC");
+            const latestWrbtcPriceFeeds = await priceFeeds.pricesFeeds(wrbtc.address);
 
-            const zeroPriceFeedProxy = await ethers.getContract("ZeroPriceFeed_Proxy");
-            const zeroPriceFeed = await ethers.getContract("ZeroPriceFeed");
-            const fallbackOracle = await get("FallbackOracle");
+            console.log(`latest WRBTC priceFeeds: ${latestWrbtcPriceFeeds}`);
+            console.log(`expected WRBTC priceFeeds: ${expectedWrbtcPriceFeed.address}`);
 
-            expect(await zeroPriceFeedProxy.getImplementation()).to.equal(
-                newZeroPriceFeedImplementation.address
-            );
-            expect(await zeroPriceFeed.getPriceFeedAtIndex(1)).to.equal(fallbackOracle.address);
+            expect(latestWrbtcPriceFeeds).not.to.equal(previousWrbtcPriceFeeds);
+            expect(expectedWrbtcPriceFeed.address).to.equal(latestWrbtcPriceFeeds);
         });
     });
 });
