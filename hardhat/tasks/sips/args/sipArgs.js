@@ -1134,7 +1134,7 @@ const getArgsSip0084Part1 = async (hre) => {
         ],
         description:
             // @todo update description
-            "SIP-0084: Update Oracle Part 1 (MoCPriceFeeds), Details: https://github.com/DistributedCollective/SIPS/blob/SIP-0084/SIP-0084_part-1.md, sha256: fb068693f3cfc4adbaf492ba9684a829193db6e95c699858902ab04e883cca81",
+            "SIP-0084: Deactivate Fallback Price Oracle Contract (Part 1), Details: https://github.com/DistributedCollective/SIPS/blob/9cab4ef/SIP-0084_part-1.md, sha256: 1904484df674f8c09090768f051f9aeb722ddd3ab68759e1022cf34b9eca97f1",
     };
     return { args, governor: "GovernorAdmin" };
 };
@@ -1174,7 +1174,7 @@ const getArgsSip0084Part2 = async (hre) => {
             abiCoder.encode(["uint8", "address"], [1, fallbackOracle.address]),
         ],
         description:
-            "SIP-0084: Update Oracle Part 2 (Zero Price Feeds), Details: https://github.com/DistributedCollective/SIPS/blob/SIP-0084/SIP-0084_part-2.md, sha256: 9014a463e6f87916e89db8dc86e8295ae9ed5d8aa8ec5187c3cddf14ae88f162",
+            "SIP-0084: Deactivate Fallback Price Oracle Contract (Part 2), Details: https://github.com/DistributedCollective/SIPS/blob/03a8a3e/SIP-0084_part-2.md, sha256: dc23cdcd178e4d2ff49c00ab0b39a5bcf11af8e9ca5800539a5d9f0fcd3bf902",
     };
 
     return { args, governor: "GovernorOwner" };
