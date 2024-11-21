@@ -16,7 +16,6 @@ const func = async function (hre) {
         from: deployer,
         args: [mocMedianizer.address, fallbackOracle.address],
         log: true,
-        skipIfAlreadyDeployed: true,
     });
 
     const priceFeedsMoC = await ethers.getContract("PriceFeedsMoC");
