@@ -1,9 +1,7 @@
 pragma solidity 0.5.17;
 
-import "../../openzeppelin/Ownable.sol";
-
 /** Mock medianizer contract that will support for MoC medianizer interface to be used for testnet */
-contract MockMoCMedianizer is Ownable {
+contract MockMoCMedianizer {
     uint256 public price;
 
     constructor(uint256 _price) public {
@@ -12,10 +10,9 @@ contract MockMoCMedianizer is Ownable {
 
     /**
      * @dev set mock price
-     * @dev can only be called by owner
      * @param _price new price
      */
-    function setPrice(uint256 _price) external onlyOwner {
+    function setPrice(uint256 _price) external {
         price = _price;
     }
 

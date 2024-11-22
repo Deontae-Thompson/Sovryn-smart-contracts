@@ -1,5 +1,5 @@
 {
-  "address": "0xfD78E69bB6f0A8903A3C4C30F2c8e5F3b9c57ecc",
+  "address": "0xCE1D1A2509575eD65c0b6eCde43Ad6Fffd428fB7",
   "abi": [
     {
       "inputs": [
@@ -12,55 +12,6 @@
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "OwnershipTransferred",
-      "type": "event"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "isOwner",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "owner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
     },
     {
       "constant": true,
@@ -111,82 +62,43 @@
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferOwnership",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
     }
   ],
-  "transactionHash": "0xad6b77da93b38664dd52819a66c5b500e2c3cc883b64f3d812a1dada1f97dfae",
+  "transactionHash": "0x3850b26f38191032d38c727db7098cd6aa3e92f387ce2e397e604d1c183c71ef",
   "receipt": {
     "to": null,
     "from": "0xa0Fdcd9d4Ca7d5a34aaB00b325d92865B830ED8b",
-    "contractAddress": "0xfD78E69bB6f0A8903A3C4C30F2c8e5F3b9c57ecc",
+    "contractAddress": "0xCE1D1A2509575eD65c0b6eCde43Ad6Fffd428fB7",
     "transactionIndex": 0,
-    "gasUsed": "265069",
-    "logsBloom": "0x00040000000000000000000000000000000000000040000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000000000800000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000020000000000000008000000000000000000000000000000000000000000004000000",
-    "blockHash": "0xd4e3272e79f89cecdf534ed0431a2e7d59b5af4325546a4dc93af98b6d3e8025",
-    "transactionHash": "0xad6b77da93b38664dd52819a66c5b500e2c3cc883b64f3d812a1dada1f97dfae",
-    "logs": [
-      {
-        "transactionIndex": 0,
-        "blockNumber": 5787392,
-        "transactionHash": "0xad6b77da93b38664dd52819a66c5b500e2c3cc883b64f3d812a1dada1f97dfae",
-        "address": "0xfD78E69bB6f0A8903A3C4C30F2c8e5F3b9c57ecc",
-        "topics": [
-          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
-          "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "0x000000000000000000000000a0fdcd9d4ca7d5a34aab00b325d92865b830ed8b"
-        ],
-        "data": "0x",
-        "logIndex": 0,
-        "blockHash": "0xd4e3272e79f89cecdf534ed0431a2e7d59b5af4325546a4dc93af98b6d3e8025"
-      }
-    ],
-    "blockNumber": 5787392,
-    "cumulativeGasUsed": "265069",
+    "gasUsed": "122035",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x4aefbb7804f8cfbf2e17c412b21bb17a3f6a11c739f510758081f6d234270a71",
+    "transactionHash": "0x3850b26f38191032d38c727db7098cd6aa3e92f387ce2e397e604d1c183c71ef",
+    "logs": [],
+    "blockNumber": 5788137,
+    "cumulativeGasUsed": "122035",
     "status": 1,
     "byzantium": true
   },
   "args": [
     "100000000000000000000000"
   ],
-  "numDeployments": 1,
-  "solcInputHash": "1ad3d633e7c3e00d9d6f2e4c95eb91e2",
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"peek\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"value\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"hasValue\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"name\":\"setPrice\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"isOwner()\":{\"details\":\"Returns true if the caller is the current owner.\"},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"peek()\":{\"details\":\"returning fixed price of rbtc (e.g: 100k)\",\"return\":\"value value price of rbtchasValue flag that is indicating the price is working or not\"},\"setPrice(uint256)\":{\"details\":\"set mock pricecan only be called by owner\",\"params\":{\"_price\":\"new price\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}}},\"userdoc\":{\"methods\":{},\"notice\":\"Mock medianizer contract that will support for MoC medianizer interface to be used for testnet \"}},\"settings\":{\"compilationTarget\":{\"contracts/feeds/testnet/MockMoCMedianizer.sol\":\"MockMoCMedianizer\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":forge-std/=foundry/lib/forge-std/src/\"]},\"sources\":{\"contracts/feeds/testnet/MockMoCMedianizer.sol\":{\"content\":\"pragma solidity 0.5.17;\\n\\nimport \\\"../../openzeppelin/Ownable.sol\\\";\\n\\n/** Mock medianizer contract that will support for MoC medianizer interface to be used for testnet */\\ncontract MockMoCMedianizer is Ownable {\\n\\n    uint256 public price;\\n\\n    constructor(uint256 _price) public {\\n        price = _price;\\n    }\\n\\n    /**\\n     * @dev set mock price\\n     * @dev can only be called by owner\\n     * @param _price new price\\n     */\\n    function setPrice(uint256 _price) external onlyOwner {\\n        price = _price;\\n    }\\n\\n    /**\\n     * @dev returning fixed price of rbtc (e.g: 100k)\\n     * @return value value price of rbtc\\n     * @return hasValue flag that is indicating the price is working or not\\n     */\\n    function peek() external view returns(bytes32 value, bool hasValue) {\\n        return (bytes32(price), true);\\n    }\\n}\",\"keccak256\":\"0xd0f12c5cb049dcedfcaf3b72c50c68dfb38c39f6d52d43138043cfadeb447aa0\"},\"contracts/openzeppelin/Context.sol\":{\"content\":\"pragma solidity >=0.5.0 <0.6.0;\\n\\n/*\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with GSN meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\ncontract Context {\\n    // Empty internal constructor, to prevent people from mistakenly deploying\\n    // an instance of this contract, which should be used via inheritance.\\n    constructor() internal {}\\n\\n    // solhint-disable-previous-line no-empty-blocks\\n\\n    function _msgSender() internal view returns (address payable) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view returns (bytes memory) {\\n        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0x7860cb1591dbd66bb497c60c46866d9fcdb56c73306ed86b25801000af1c7b2b\"},\"contracts/openzeppelin/Ownable.sol\":{\"content\":\"pragma solidity >=0.5.0 <0.6.0;\\n\\nimport \\\"./Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\ncontract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() internal {\\n        address msgSender = _msgSender();\\n        _owner = msgSender;\\n        emit OwnershipTransferred(address(0), msgSender);\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        require(isOwner(), \\\"unauthorized\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the caller is the current owner.\\n     */\\n    function isOwner() public view returns (bool) {\\n        return _msgSender() == _owner;\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public onlyOwner {\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     */\\n    function _transferOwnership(address newOwner) internal {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        emit OwnershipTransferred(_owner, newOwner);\\n        _owner = newOwner;\\n    }\\n}\\n\",\"keccak256\":\"0x94496c375b3e82d87d7f01ce1577f008fab374312cf93012a0eca716e6aadb3a\"}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506040516103b43803806103b48339818101604052602081101561003357600080fd5b505160006100486001600160e01b0361009a16565b600080546001600160a01b0319166001600160a01b0383169081178255604051929350917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908290a35060015561009e565b3390565b610307806100ad6000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806359e02dd7146100675780638da5cb5b146100885780638f32d59b146100ac57806391b7f5ed146100c8578063a035b1fe146100e7578063f2fde38b14610101575b600080fd5b61006f610127565b6040805192835290151560208301528051918290030190f35b61009061012e565b604080516001600160a01b039092168252519081900360200190f35b6100b461013d565b604080519115158252519081900360200190f35b6100e5600480360360208110156100de57600080fd5b5035610161565b005b6100ef6101ae565b60408051918252519081900360200190f35b6100e56004803603602081101561011757600080fd5b50356001600160a01b03166101b4565b6001805491565b6000546001600160a01b031690565b600080546001600160a01b0316610152610208565b6001600160a01b031614905090565b61016961013d565b6101a9576040805162461bcd60e51b815260206004820152600c60248201526b1d5b985d5d1a1bdc9a5e995960a21b604482015290519081900360640190fd5b600155565b60015481565b6101bc61013d565b6101fc576040805162461bcd60e51b815260206004820152600c60248201526b1d5b985d5d1a1bdc9a5e995960a21b604482015290519081900360640190fd5b6102058161020c565b50565b3390565b6001600160a01b0381166102515760405162461bcd60e51b81526004018080602001828103825260268152602001806102ad6026913960400191505060405180910390fd5b600080546040516001600160a01b03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a3600080546001600160a01b0319166001600160a01b039290921691909117905556fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f2061646472657373a265627a7a72315820ba791f6948ca42b03c1fb98a6f481c59a165e2f4771fdbf6aece98c4af33b88e64736f6c63430005110032",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c806359e02dd7146100675780638da5cb5b146100885780638f32d59b146100ac57806391b7f5ed146100c8578063a035b1fe146100e7578063f2fde38b14610101575b600080fd5b61006f610127565b6040805192835290151560208301528051918290030190f35b61009061012e565b604080516001600160a01b039092168252519081900360200190f35b6100b461013d565b604080519115158252519081900360200190f35b6100e5600480360360208110156100de57600080fd5b5035610161565b005b6100ef6101ae565b60408051918252519081900360200190f35b6100e56004803603602081101561011757600080fd5b50356001600160a01b03166101b4565b6001805491565b6000546001600160a01b031690565b600080546001600160a01b0316610152610208565b6001600160a01b031614905090565b61016961013d565b6101a9576040805162461bcd60e51b815260206004820152600c60248201526b1d5b985d5d1a1bdc9a5e995960a21b604482015290519081900360640190fd5b600155565b60015481565b6101bc61013d565b6101fc576040805162461bcd60e51b815260206004820152600c60248201526b1d5b985d5d1a1bdc9a5e995960a21b604482015290519081900360640190fd5b6102058161020c565b50565b3390565b6001600160a01b0381166102515760405162461bcd60e51b81526004018080602001828103825260268152602001806102ad6026913960400191505060405180910390fd5b600080546040516001600160a01b03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a3600080546001600160a01b0319166001600160a01b039290921691909117905556fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f2061646472657373a265627a7a72315820ba791f6948ca42b03c1fb98a6f481c59a165e2f4771fdbf6aece98c4af33b88e64736f6c63430005110032",
+  "numDeployments": 3,
+  "solcInputHash": "55ca5f5e5032e71b0fd3aa857253b73f",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[],\"name\":\"peek\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"value\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"hasValue\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"name\":\"setPrice\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"peek()\":{\"details\":\"returning fixed price of rbtc (e.g: 100k)\",\"return\":\"value value price of rbtchasValue flag that is indicating the price is working or not\"},\"setPrice(uint256)\":{\"details\":\"set mock price\",\"params\":{\"_price\":\"new price\"}}}},\"userdoc\":{\"methods\":{},\"notice\":\"Mock medianizer contract that will support for MoC medianizer interface to be used for testnet \"}},\"settings\":{\"compilationTarget\":{\"contracts/feeds/testnet/MockMoCMedianizer.sol\":\"MockMoCMedianizer\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":forge-std/=foundry/lib/forge-std/src/\"]},\"sources\":{\"contracts/feeds/testnet/MockMoCMedianizer.sol\":{\"content\":\"pragma solidity 0.5.17;\\n\\n/** Mock medianizer contract that will support for MoC medianizer interface to be used for testnet */\\ncontract MockMoCMedianizer {\\n    uint256 public price;\\n\\n    constructor(uint256 _price) public {\\n        price = _price;\\n    }\\n\\n    /**\\n     * @dev set mock price\\n     * @param _price new price\\n     */\\n    function setPrice(uint256 _price) external {\\n        price = _price;\\n    }\\n\\n    /**\\n     * @dev returning fixed price of rbtc (e.g: 100k)\\n     * @return value value price of rbtc\\n     * @return hasValue flag that is indicating the price is working or not\\n     */\\n    function peek() external view returns (bytes32 value, bool hasValue) {\\n        return (bytes32(price), true);\\n    }\\n}\\n\",\"keccak256\":\"0xd97414a8b2d7779de82b8eaae7ff6fc11921ad99b77052e4cd48055f71d6be2a\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516101233803806101238339818101604052602081101561003357600080fd5b505160005560dd806100466000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c806359e02dd714604157806391b7f5ed146060578063a035b1fe14607c575b600080fd5b60476094565b6040805192835290151560208301528051918290030190f35b607a60048036036020811015607457600080fd5b5035609d565b005b608260a2565b60408051918252519081900360200190f35b60005460019091565b600055565b6000548156fea265627a7a723158206a671e76933e50fbff6eb48393fd95b3c74045f594b5f83ca0b284b04c8a598364736f6c63430005110032",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b5060043610603c5760003560e01c806359e02dd714604157806391b7f5ed146060578063a035b1fe14607c575b600080fd5b60476094565b6040805192835290151560208301528051918290030190f35b607a60048036036020811015607457600080fd5b5035609d565b005b608260a2565b60408051918252519081900360200190f35b60005460019091565b600055565b6000548156fea265627a7a723158206a671e76933e50fbff6eb48393fd95b3c74045f594b5f83ca0b284b04c8a598364736f6c63430005110032",
   "devdoc": {
     "methods": {
-      "isOwner()": {
-        "details": "Returns true if the caller is the current owner."
-      },
-      "owner()": {
-        "details": "Returns the address of the current owner."
-      },
       "peek()": {
         "details": "returning fixed price of rbtc (e.g: 100k)",
         "return": "value value price of rbtchasValue flag that is indicating the price is working or not"
       },
       "setPrice(uint256)": {
-        "details": "set mock pricecan only be called by owner",
+        "details": "set mock price",
         "params": {
           "_price": "new price"
         }
-      },
-      "transferOwnership(address)": {
-        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
       }
     }
   },
@@ -197,28 +109,15 @@
   "storageLayout": {
     "storage": [
       {
-        "astId": 55759,
-        "contract": "contracts/feeds/testnet/MockMoCMedianizer.sol:MockMoCMedianizer",
-        "label": "_owner",
-        "offset": 0,
-        "slot": "0",
-        "type": "t_address"
-      },
-      {
-        "astId": 12226,
+        "astId": 3,
         "contract": "contracts/feeds/testnet/MockMoCMedianizer.sol:MockMoCMedianizer",
         "label": "price",
         "offset": 0,
-        "slot": "1",
+        "slot": "0",
         "type": "t_uint256"
       }
     ],
     "types": {
-      "t_address": {
-        "encoding": "inplace",
-        "label": "address",
-        "numberOfBytes": "20"
-      },
       "t_uint256": {
         "encoding": "inplace",
         "label": "uint256",
