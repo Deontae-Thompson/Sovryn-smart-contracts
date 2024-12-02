@@ -81,10 +81,7 @@ describe("SIP-0084 Part 1 test onchain", () => {
 
     describe("SIP-0084 Part 1 Test creation and execution", () => {
         it("SIP-0084 Part 1 is executable and valid", async () => {
-            if (!hre.network.tags["forked"]) {
-                console.error("ERROR: Must run on a forked net");
-                return;
-            }
+            expect(hre.network.tags["forked"], "ERROR: Must run on a forked net").equal(true);
             await hre.network.provider.request({
                 method: "hardhat_reset",
                 params: [
