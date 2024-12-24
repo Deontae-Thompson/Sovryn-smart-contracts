@@ -225,7 +225,7 @@ async function createVestings(hre, dryRun, path, multiplier, signerAcc, reissue 
             const receipt = await (
                 await vesting.stakeTokens(amount, {
                     gasLimit: 6800000,
-                    gasPrice: 65e6,
+                    gasPrice: 66000010,
                 })
             ).wait();
             console.log("Transaction hash:", receipt.transactionHash);
