@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: "14.x"
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Cache compiler installations
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ~/.solcx
@@ -50,7 +50,7 @@ jobs:
       #   echo "::set-output name=dir::$(pip cache dir)"
 
       # - name: Restore pip cache
-      #   uses: actions/cache@v2
+      #   uses: actions/cache@v4
       #   id: pip-cache
       #   with:
       #     path: |
