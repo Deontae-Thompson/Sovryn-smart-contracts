@@ -370,7 +370,7 @@ def transferOwnershipAMMContractsToGovernance(contractAddress, newOwnerAddress, 
     print(data)
     sendWithMultisig(conf.contracts['multisig'], ammContract.address, data, conf.acct)
 
-def getExchequerBalances():
+def getAmmExchequerBalances():
     usdtPool = getBalance(conf.contracts['(WR)BTC/USDT2'], conf.contracts['multisig'])
     balanceAndFee = getReturnForV2PoolToken(conf.contracts['ConverterUSDT'], conf.contracts['(WR)BTC/USDT2'], usdtPool)
     usdtBalance = balanceAndFee[0]

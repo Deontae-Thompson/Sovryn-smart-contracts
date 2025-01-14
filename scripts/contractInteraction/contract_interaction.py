@@ -54,14 +54,20 @@ def main():
 
     #bal = getBalanceOf(conf.contracts['(WR)BTC/DLLR'], conf.contracts['multisig'])
     #removeLiquidityV1toMultisigUsingWrapper(conf.contracts['RBTCWrapperProxyWithoutLM'], conf.contracts['ConverterDLLR'], bal, [conf.contracts['WRBTC'], conf.contracts['DLLR']], [6.7,396800e18])
-    #readLendingBalanceForUser(conf.contracts['iDLLR'], conf.contracts['multisig'])
-
-    #readLendingBalanceForUser(conf.contracts['iDLLR'], conf.contracts['multisig'])
+    
+    # read lending pools balances for the exchequer multisig #
+    # readLendingBalanceForUser(conf.contracts["iDOC"], conf.contracts['multisig'])
+    # readLendingBalanceForUser(conf.contracts["iRBTC"], conf.contracts['multisig'])
+    # readLendingBalanceForUser(conf.contracts["iXUSD"], conf.contracts['multisig'])
+    # readLendingBalanceForUser(conf.contracts["iUSDT"], conf.contracts['multisig'])
+    # readLendingBalanceForUser(conf.contracts["iBPro"], conf.contracts['multisig'])
+    # readLendingBalanceForUser(conf.contracts["iDLLR"], conf.contracts['multisig'])
+    ##############################################################################
     #amount = readLoanTokenBalanceForUser(conf.contracts['iDLLR'], conf.contracts['multisig'])
     #removeFromPoolWithMS(conf.contracts['iDLLR'], amount, conf.contracts['multisig'])
 
     #printMultisigOwners()
-    #getExchequerBalances()
+    #getAmmExchequerBalances()
 
     # transferOwnershipFromMultisig(conf.contracts['ConverterPOWA'], conf.contracts['TimelockOwner'])
     # transferOwnershipFromMultisig(conf.contracts['POWAPoolOracle'], conf.contracts['TimelockAdmin'])
