@@ -1,3 +1,4 @@
 eth-brownie==1.12.4
 munch==2.5.0
 slither-analyzer==0.7.0
+vyper>=0.4.1 # not directly required, pinned by Snyk to avoid a vulnerability
